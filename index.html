@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Anubhav Verma</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        dark: "#0b0b0b",
+        light: "#f5f5f5",
+      }
+    }
+  }
+}
+</script>
+
+<style>
+body {
+  transition: background 0.35s, color 0.35s;
+}
+
+/* routing views */
+.view {
+  display: none;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: all 0.4s ease;
+}
+.view.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* home hover hints */
+.menu-item {
+  position: relative;
+}
+.menu-item span {
+  position: absolute;
+  left: 180px;          /* more spacing */
+  top: 2px;
+  white-space: nowrap; /* prevents wrapping */
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  font-size: 12px;
+  color: #777;
+  pointer-events: none;
+}
+
+.menu-item:hover span {
+  opacity: 1;
+}
+
+/* icon style */
+.footer-icon {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.5s;
+}
+.footer-icon:hover {
+  opacity: 5;
+}
+</style>
+</head>
+
+<body class="bg-dark text-white font-mono">
+
+<!-- HIDDEN AUDIO -->
+<audio id="bgMusic" src="aura_slowed_reverb.mp3" loop preload="auto"></audio>
+
+<!-- TOP SKIP LINE -->
+<div class="max-w-3xl mx-auto px-6 pt-10 text-sm text-gray-400 text-center">
+  <span id="skipText"></span>
+  <a href="?view=simple" class="underline hover:text-white"> Click here.</a>
+</div>
+
+<!-- ================= HOME ================= -->
+<section 
+id="home" class="view max-w-3xl mx-auto px-6 pt-24">
+  <h1
+  id="homeTitle"
+  class="text-center font-mono font-medium
+         text-[clamp(2.8rem,6vw,4.5rem)]
+         leading-tight
+         mb-14
+         tracking-wide">
+  </h1>
+
+  <ul class="space-y-5 text-gray-400 text-lg">
+    <li class="menu-item">
+      <a href="?view=about" class="hover:text-white">About Me</a>
+      <span>who I am</span>
+    </li>
+    <li class="menu-item">
+      <a href="?view=projects" class="hover:text-white">Projects</a>
+      <span>things I built</span>
+    </li>
+    <li class="menu-item">
+      <a href="?view=resume" class="hover:text-white">Resume</a>
+      <span>boring but useful</span>
+    </li>
+    <li class="menu-item">
+      <a href="?view=socials" class="hover:text-white">Socials</a>
+      <span>find me online</span>
+    </li>
+    <li class="menu-item">
+      <a href="?view=achievements" class="hover:text-white">
+        Achievements
+      </a>
+      <span>awards & credentials</span>
+    </li>    
+  </ul>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about" class="view max-w-3xl mx-auto px-6 pt-24 text-center">
+  <h2 class="text-3xl mb-8">About Me</h2>
+
+  <img src="lil Krsna.jpeg"
+       class="mx-auto mb-6 max-w-xs grayscale opacity-80"/>
+
+  <p class="text-gray-400 leading-relaxed">
+    Hi, I’m Anubhav — a Data Science student who cares more about building usable AI than just training models.
+My work revolves around Machine Learning, Deep Learning , and GenAI systems that are designed to solve real problems, not just look good on paper.
+  </p>
+</section>
+
+<!-- ================= PROJECTS LIST ================= -->
+<section id="projects" class="view max-w-3xl mx-auto px-6 pt-24">
+  <h2 class="text-2xl mb-8">
+    Projects (<span id="projectCount"></span>)
+  </h2>
+  <ul id="projectsList" class="space-y-4 text-gray-400"></ul>
+</section>
+
+<!-- ================= PROJECT DETAIL ================= -->
+<section id="project-detail" class="view max-w-3xl mx-auto px-6 pt-24">
+  <a href="?view=projects" class="text-sm text-gray-400 hover:text-white">← Back</a>
+
+  <h2 id="pd-name" class="text-3xl mt-6 mb-6"></h2>
+
+  <h3 class="text-lg mb-1">Description</h3>
+  <p id="pd-desc" class="text-gray-400 mb-6"></p>
+
+  <h3 class="text-lg mb-1">Tech Stack</h3>
+  <p id="pd-tech" class="text-gray-400 mb-6"></p>
+
+  <h3 class="text-lg mb-1">Features</h3>
+  <p id="pd-features" class="text-gray-400 mb-8"></p>
+
+  <a id="pd-github"
+     target="_blank"
+     class="inline-block border px-4 py-2 hover:bg-white hover:text-black transition">
+     GitHub
+  </a>
+</section>
+
+<!-- ================= ACHIEVEMENTS ================= -->
+<section id="achievements" class="view max-w-3xl mx-auto px-6 pt-24">
+
+  <h2 class="text-2xl mb-8">Achievements & Certifications</h2>
+
+  <div class="border border-gray-800 px-5 py-4 text-gray-400 text-sm leading-relaxed space-y-5">
+
+    <!-- DST INSPIRE -->
+    <div>
+      <a href="https://drive.google.com/file/d/1VAjmDT8Ew-oyU3UZye9pkkPcU0PL9DrH/view?usp=drive_link"
+         target="_blank"
+         class="text-white hover:underline">
+        DST INSPIRE Scholarship — Government of India
+      </a>
+      <span class="block text-xs text-gray-500">
+        2021 – Present
+      </span>
+      <p class="mt-1">
+        Awarded a full scholarship for academic excellence, recognizing students in
+        the <span class="text-white">top 1% nationwide</span>.
+      </p>
+    </div>
+
+    <!-- NPTEL -->
+    <div>
+      <a href="https://drive.google.com/file/d/1B3uAw1MKljw-wqZcB02rNTA5Ia7qNAPT/view?usp=sharing"
+         target="_blank"
+         class="text-white hover:underline">
+        NPTEL Certification: Introduction to Large Language Models — IIT Madras
+      </a>
+      <span class="block text-xs text-gray-500">
+        Oct 2025
+      </span>
+      <p class="mt-1">
+        Achieved <span class="text-white">Elite status (72%)</span> in a 12-week
+        advanced course funded by the Ministry of Education, Government of India.
+      </p>
+    </div>
+
+    <!-- INTEL -->
+    <div>
+      <a href="https://drive.google.com/file/d/1KDzIvi8CVG6xHNp5UXZn8-q6_4pQzjDq/view?usp=sharing"
+         target="_blank"
+         class="text-white hover:underline">
+        Get Started with Generative AI — Intel
+      </a>
+      <span class="block text-xs text-gray-500">
+        Aug 2025
+      </span>
+      <p class="mt-1">
+        Completed the Intel Unnati powered program covering core concepts of
+        <span class="text-white">Generative AI, LLMs, and applied AI workflows</span>.
+      </p>
+    </div>
+
+    <!-- JAMOVI -->
+    <div>
+      <a href="https://drive.google.com/file/d/1sHK36XGkCcdkyr8DTTqxQ9YKPlwEtdXy/view?usp=sharing"
+         target="_blank"
+         class="text-white hover:underline">
+        International Workshop on Multivariate Analysis using JAMOVI — ISAR, Chennai
+      </a>
+      <span class="block text-xs text-gray-500">
+        Jan 2025
+      </span>
+      <p class="mt-1">
+        Gained hands-on experience with multivariate techniques including
+        <span class="text-white">PCA, MANOVA, Cluster Analysis</span>,
+        and statistical interpretation using JAMOVI.
+      </p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ================= RESUME ================= -->
+<section id="resume" class="view max-w-3xl mx-auto px-6 pt-24">
+  <h2 class="text-2xl mb-6">Resume</h2>
+  <iframe src="DataScienceRole (2).pdf"
+          class="w-full h-[500px] border border-gray-800"></iframe>
+</section>
+
+<!-- ================= SOCIALS ================= -->
+<section id="socials" class="view max-w-3xl mx-auto px-6 pt-24">
+  <h2 class="text-2xl mb-6">Socials</h2>
+  <ul class="space-y-4 text-gray-400">
+    <li><a href="https://github.com/anubhav9369" class="hover:text-white">GitHub →</a></li>
+    <li><a href="https://www.linkedin.com/in/anubhav-verma-b389201a7/" class="hover:text-white">LinkedIn →</a></li>
+    <li><a href="https://www.instagram.com/anubhaverma_/" class="hover:text-white">Instagram →</a></li>
+    <li><a href="https://x.com/_anubhav_tweets" class="hover:text-white">Twitter →</a></li>
+    <li><a href="anubhavverma9369@gmail.com" class="hover:text-white">Email →</a></li>
+  </ul>
+</section>
+
+<!-- ================= SIMPLE ================= -->
+<section
+  id="simple"
+  class="view min-h-screen flex justify-center"
+>
+
+
+  <div class="w-full max-w-4xl text-sm px-6 mx-auto">
+
+    <!-- NAME -->
+    <div class="text-center mb-6">
+      <h1 class="text-3xl">Anubhav Verma</h1>
+      <p class="text-gray-400 mt-1">
+        Aspiring Data Scientist · GenAI & Machine Learning
+      </p>
+    </div>
+
+    <hr class="border-gray-700 mb-8"/>
+
+    <!-- ABOUT -->
+    <div class="border border-gray-700 mb-6">
+      <div class="px-4 py-2 border-b border-gray-700 font-semibold">
+        About Me
+      </div>
+      <div class="px-4 py-3 text-gray-400 leading-relaxed">
+        Hi, I'm Anubhav, a Data Science candidate with a strong foundation in Mathematics and
+        Machine Learning. Experienced in building end-to-end ML and DL
+        pipelines, including deployment using Flask , streamlit and React. Recipient of the
+        DST INSPIRE Scholarship. Seeking to leverage expertise in GenAI, predictive modeling, and data analytics to deliver impactful
+        AI-driven solutions.
+      </div>
+    </div>
+
+    <!-- ================= TECH STACK ================= -->
+<div class="border border-gray-700 mb-6">
+
+  <div class="px-4 py-2 border-b border-gray-700 font-semibold">
+    Tech Stack
+  </div>
+
+  <div class="px-4 py-3 flex flex-wrap gap-2 text-gray-300">
+
+    <!-- Programming & Databases -->
+    <span class="border px-2 py-1">Python</span>
+    <span class="border px-2 py-1">SQL</span>
+    <span class="border px-2 py-1">C</span>
+    <span class="border px-2 py-1">Java</span>
+    <span class="border px-2 py-1">R</span>
+    <span class="border px-2 py-1">MongoDB</span>
+    <span class="border px-2 py-1">Hadoop</span>
+
+    <!-- Machine Learning & AI -->
+    <span class="border px-2 py-1">TensorFlow</span>
+    <span class="border px-2 py-1">PyTorch</span>
+    <span class="border px-2 py-1">Scikit-learn</span>
+    <span class="border px-2 py-1">Hugging Face</span>
+    <span class="border px-2 py-1">NLP</span>
+    <span class="border px-2 py-1">LLMs</span>
+    <span class="border px-2 py-1">Transformers</span>
+    <span class="border px-2 py-1">CNNs</span>
+
+    <!-- Data Analysis & Visualization -->
+    <span class="border px-2 py-1">Pandas</span>
+    <span class="border px-2 py-1">NumPy</span>
+    <span class="border px-2 py-1">Matplotlib</span>
+    <span class="border px-2 py-1">Seaborn</span>
+    <span class="border px-2 py-1">Power BI</span>
+    <span class="border px-2 py-1">Tableau</span>
+    <span class="border px-2 py-1">Excel</span>
+
+    <!-- Development & Tools -->
+    <span class="border px-2 py-1">Git</span>
+    <span class="border px-2 py-1">GitHub</span>
+    <span class="border px-2 py-1">Flask</span>
+    <span class="border px-2 py-1">Streamlit</span>
+    <span class="border px-2 py-1">Gradio</span>
+    <span class="border px-2 py-1">LaTeX</span>
+
+  </div>
+</div>
+
+
+    <!-- PROJECTS -->
+<div class="border border-gray-700 mb-6">
+  <div class="px-4 py-2 border-b border-gray-700 font-semibold">
+    Projects
+  </div>
+
+  <div class="px-4 py-3 space-y-4 text-gray-400">
+
+    <a href="https://github.com/anubhav9369/Enhancing-Monitoring-and-Management-of-Research-Grants-Using-AI.git"
+       target="_blank"
+       class="block hover:text-white transition">
+      <strong class="text-white">
+        AI-Powered Research Grant Management System
+      </strong>
+      <p>
+        SciBERT + XGBoost system achieving 76.8% accuracy on 9,200+ applications
+        with SHAP-based explainability.
+      </p>
+    </a>
+
+    <a href="https://github.com/anubhav9369/medisimple"
+       target="_blank"
+       class="block hover:text-white transition">
+      <strong class="text-white">
+        MediSimplify (RAG-Based Medical Simplifier)
+      </strong>
+      <p>
+        RAG pipeline using Sentence-BERT and FAISS to translate medical reports
+        into plain English.
+      </p>
+    </a>
+
+    <a href="https://github.com/anubhav9369/FakeNewsDetector_Extension"
+       target="_blank"
+       class="block hover:text-white transition">
+      <strong class="text-white">
+        Fake News Detection Browser Extension
+      </strong>
+      <p>
+        BERT-based real-time misinformation detection integrated directly into
+        the browser.
+      </p>
+    </a>
+
+    <a href="https://github.com/anubhav9369/Brain-Tumor-classification-and-severity-detector"
+       target="_blank"
+       class="block hover:text-white transition">
+      <strong class="text-white">
+        Brain Tumor Detection & Analysis System
+      </strong>
+      <p>
+        CNN-based MRI classification with severity grading and heatmap-based
+        localization.
+      </p>
+    </a>
+
+  </div>
+</div>
+    <!-- CONTACT -->
+    <div class="border border-gray-700 mb-6">
+      <div class="px-4 py-2 border-b border-gray-700 font-semibold">
+        Contact & Social
+      </div>
+      <div class="px-4 py-3 flex flex-wrap gap-4 text-gray-400">
+        <a href="https://github.com/anubhav9369" class="underline">GitHub</a>
+        <a href="https://www.linkedin.com/in/anubhav-verma-b389201a7/" class="underline">LinkedIn</a>
+        <a href="https://x.com/_anubhav_tweets" class="underline">Twitter</a>
+        <a href="https://www.instagram.com/anubhaverma_/" class="underline">Instagram</a>
+        <a href="mailto:anubhavverma9369@gmail.com" class="underline">Email</a>
+      </div>
+    </div>
+
+    <div class="text-center text-gray-500 mt-10">
+      made with ♥ by Anubhav
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+<footer class="fixed bottom-0 left-0 right-0 border-t border-gray-800 bg-dark">
+  <div class="max-w-6xl mx-auto px-6 py-2 flex justify-between items-center text-xs text-gray-400">
+
+    <!-- Left -->
+    <!-- Left -->
+<div class="flex items-center gap-4">
+  <span id="themeBtn" class="footer-icon cursor-pointer">☀</span>
+  <span id="musicBtn" class="footer-icon cursor-pointer">♪</span>
+  <span class="footer-icon cursor-pointer" onclick="openModal()">💬</span>
+</div>
+    <!-- Center -->
+    <div class="flex items-center gap-2">
+      👤 Visitor <span id="visitorCount">1</span>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="flex items-center gap-6">
+      <div class="flex items-center gap-2">
+        <span>⏱</span>
+        <span>Time spent:</span>
+        <span id="timeSpent">0:00</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <span>Made by Anubhav</span>
+        <a href="https://twitter.com/_anubhav_tweets"
+           target="_blank"
+           class="hover:text-white transition">
+          𝕏
+        </a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+
+
+<!-- ================= SCRIPT ================= -->
+<script>
+
+/* Projects */
+const projectsData = {
+  grantai: {
+    name: "AI-Powered Research Grant Management System",
+    description:
+      "An end-to-end AI system designed to automate the evaluation, ranking, and monitoring of research grant applications.",
+    tech:
+      "SciBERT, XGBoost, SHAP, Streamlit, Python, NLP, Machine Learning",
+    features:
+      "Hybrid SciBERT + XGBoost model achieving 76.8% accuracy on 9,200+ applications, explainable funding decisions using SHAP, real-time dashboard for tracking milestones, fund misuse detection, and allocation visualization.",
+    github:
+      "https://github.com/anubhav9369/Enhancing-Monitoring-and-Management-of-Research-Grants-Using-AI.git"
+  },
+
+  medisimplify: {
+    name: "MediSimplify: RAG-Based Medical Simplifier",
+    description:
+      "An AI system that converts complex medical reports into plain English using Retrieval-Augmented Generation.",
+    tech:
+      "RAG, Sentence-BERT, FAISS, BART, OCR, Streamlit, NLP",
+    features:
+      "RAG pipeline with Sentence-BERT embeddings, FAISS-based retrieval, OCR for PDF processing, dual-view interface showing original and simplified medical explanations.",
+    github:
+      "https://github.com/anubhav9369/medisimple"
+  },
+
+  fakenews: {
+    name: "Fake News Detection Browser Extension",
+    description:
+      "A full-stack browser-based system for detecting misinformation in real time.",
+    tech:
+      "BERT, Flask, JavaScript, Deep Learning, NLP",
+    features:
+      "Fine-tuned BERT model achieving 96% accuracy, browser extension parsing live article content, Flask backend for inference.",
+    github:
+      "https://github.com/anubhav9369/FakeNewsDetector_Extension"
+  },
+
+  braintumor: {
+    name: "Brain Tumor Detection & Analysis System",
+    description:
+      "A diagnostic support system for multi-class brain tumor classification and severity analysis using MRI scans.",
+    tech:
+      "CNN, Medical Imaging, Streamlit, Deep Learning, Python",
+    features:
+      "87.4% classification accuracy, tumor type detection (Glioma, Meningioma, Pituitary), severity grading, heatmap-based tumor localization.",
+    github:
+      "https://github.com/anubhav9369/Brain-Tumor-classification-and-severity-detector"
+  }
+};
+
+
+/* ROUTER */
+const views = document.querySelectorAll(".view");
+const params = new URLSearchParams(window.location.search);
+const view = params.get("view") || "home";
+const projectKey = params.get("project");
+
+views.forEach(v => v.classList.remove("active"));
+
+if (view === "projects" && projectKey && projectsData[projectKey]) {
+  document.getElementById("project-detail").classList.add("active");
+
+  const p = projectsData[projectKey];
+  document.getElementById("pd-name").innerText = p.name;
+  document.getElementById("pd-desc").innerText = p.description;
+  document.getElementById("pd-tech").innerText = p.tech;
+  document.getElementById("pd-features").innerText = p.features;
+  document.getElementById("pd-github").href = p.github;
+
+} else if (view === "projects") {
+  document.getElementById("projects").classList.add("active");
+
+  const list = document.getElementById("projectsList");
+  list.innerHTML = "";
+
+  const keys = Object.keys(projectsData);
+  document.getElementById("projectCount").innerText = keys.length;
+
+  keys.forEach(key => {
+    const li = document.createElement("li");
+    li.innerHTML = `<a href="?view=projects&project=${key}" class="hover:text-white">${projectsData[key].name}</a>`;
+    list.appendChild(li);
+  });
+
+} else {
+  document.getElementById(view)?.classList.add("active");
+}
+
+/* TYPING SYSTEM*/
+function typeText(el, text, speed = 80) {
+  if (!el) return;
+  el.innerHTML = "";
+  let i = 0;
+  const interval = setInterval(() => {
+    el.innerHTML += text.charAt(i);
+    i++;
+    if (i >= text.length) clearInterval(interval);
+  }, speed);
+}
+
+/* HOME TITLE */
+if (view === "home") {
+  const title = document.getElementById("homeTitle");
+  typeText(title, "Anubhav's Portfolio",90);
+
+  const skip = document.getElementById("skipText");
+  typeText(
+    skip,
+    "Don’t want to waste time in this animated bullshit?",
+    35
+  );
+}
+
+/* SECTION HEADINGS */
+document.querySelectorAll("[data-type]").forEach(el => {
+  const text = el.innerText;
+  el.innerText = "";
+  setTimeout(() => typeText(el, text, 50), 150);
+});
+
+
+/* ================= MUSIC ================= */
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
+let playing = false;
+
+if (music && musicBtn) {
+  musicBtn.addEventListener("click", () => {
+    if (!playing) {
+      music.play();
+    } else {
+      music.pause();
+    }
+    playing = !playing;
+  });
+}
+
+/* ================= THEME ================= */
+const themeBtn = document.getElementById("themeBtn");
+let dark = true;
+
+if (themeBtn) {
+  themeBtn.addEventListener("click", () => {
+    dark = !dark;
+    document.body.className = dark
+      ? "bg-dark text-white font-mono"
+      : "bg-light text-black font-mono";
+  });
+}
+
+/* ================= TIME SPENT ================= */
+let seconds = 0;
+const timeEl = document.getElementById("timeSpent");
+
+setInterval(() => {
+  seconds++;
+  const min = Math.floor(seconds / 60);
+  const sec = (seconds % 60).toString().padStart(2, "0");
+  if (timeEl) timeEl.innerText = `${min}:${sec}`;
+}, 1000);
+
+
+/* Visitor */
+let visits = localStorage.getItem("visits");
+  visits = visits ? parseInt(visits) + 1 : 1;
+  localStorage.setItem("visits", visits);
+
+  /* text popup */
+  document.getElementById("visitorCount").innerText = visits;
+  function openModal() {
+    document.getElementById("textModal").classList.remove("hidden");
+    document.getElementById("textModal").classList.add("flex");
+  }
+
+  function closeModal() {
+    document.getElementById("textModal").classList.add("hidden");
+    document.getElementById("textModal").classList.remove("flex");
+  }
+
+  function openModal() {
+    document.getElementById("textModal").classList.remove("hidden");
+    document.getElementById("textModal").classList.add("flex");
+  }
+
+  function closeModal() {
+    document.getElementById("textModal").classList.add("hidden");
+    document.getElementById("textModal").classList.remove("flex");
+  }
+
+  // Attach textarea content to mail
+  document.getElementById("sendMailBtn").addEventListener("click", () => {
+    const msg = document.getElementById("userMessage").value.trim();
+    const subject = "Message from your portfolio";
+    const body = msg
+      ? encodeURIComponent(msg)
+      : encodeURIComponent("Hey Anubhav, just checked your portfolio.");
+    
+    document.getElementById("sendMailBtn").href =
+      `mailto:anubhavverma9369@gmail.com?subject=${subject}&body=${body}`;
+  });
+
+</script>
+
+
+<!-- TEXT POPUP MODAL -->
+<div id="textModal"
+     class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+
+  <div class="bg-white text-black w-[90%] max-w-md p-5 border relative font-mono">
+    
+    <!-- Close -->
+    <button onclick="closeModal()"
+            class="absolute top-2 right-3 text-lg">×</button>
+
+    <!-- Meme Image -->
+    <img src="_.jpeg"
+         class="w-full mb-3 grayscale"/>
+
+    <p class="text-sm text-gray-700 mb-4">
+      This site is still evolving.  
+      If something feels broken — it probably is.  
+      If you have feedback, suggestions, or just want to say hi —  
+      you can reach me directly.
+    </p>
+
+    <!-- Message Box -->
+    <textarea id="userMessage"
+              placeholder="Type something here (optional)…"
+              class="w-full border px-3 py-2 text-sm mb-3 resize-none"
+              rows="3"></textarea>
+
+    <!-- Actions -->
+    <div class="flex justify-between items-center">
+      <a id="sendMailBtn"
+         href="mailto:anubhavverma9369@gmail.com"
+         class="border px-4 py-2 text-sm hover:bg-black hover:text-white transition">
+        Send via Email
+      </a>
+
+      <span class="text-xs text-gray-500">
+        opens your mail app
+      </span>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
